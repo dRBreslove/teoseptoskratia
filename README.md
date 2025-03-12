@@ -1,4 +1,5 @@
 # TEK
+## This is a decetrelised distributed multichain. 
 ```
 npm install
 
