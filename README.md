@@ -1,5 +1,6 @@
 # TEK
 ## This is a decetrelised distributed multichain. 
+teoseptoskratia.com
 ```
 npm install
 
