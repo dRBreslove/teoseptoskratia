@@ -16,4 +16,4 @@ http://localhost:8082/
 ### You can find an excellent course on blockchain technology using JavaScript here:
 ### [Learn Blockchain By Building Your Own In JavaScript](https://www.udemy.com/course/build-a-blockchain-in-javascript/)
 
-### [Single Node Live Demo](http://159.65.208.133:8080)
+### [Single Node Live Demo: https://plankton-app-w6pzk.ondigitalocean.app](https://plankton-app-w6pzk.ondigitalocean.app)
