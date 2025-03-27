@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
+    "start": "nodemon --watch src -e js src/server.js \"Our Circle\" 8080",
     "test": "node src/test.js",
     "node_1": "nodemon --watch src -e js src/server.js \"Our Circle\" 8080",
     "node_2": "nodemon --watch src -e js src/server.js \"Itay's Circle\" 8081",
