@@ -1,25 +1,23 @@
 {
   "name": "teoseptoskratia",
   "version": "1.0.0",
-  "description": "",
+  "description": "A decentralized distributed multi-chain cryptocurrency system",
+  "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon --watch src -e js src/server.js \"Our Circle\" 8080",
+    "start": "node src/server.js",
     "test": "node src/test.js",
-    "node_1": "nodemon --watch src -e js src/server.js \"Our Circle\" 8080",
-    "node_2": "nodemon --watch src -e js src/server.js \"Itay's Circle\" 8081",
-    "node_3": "nodemon --watch src -e js src/server.js \"Shiriloo's Circle\" 8082"
+    "node_1": "node src/server.js \"Our Circle\" 8080",
+    "node_2": "node src/server.js \"Itay's Circle\" 8081",
+    "node_3": "node src/server.js \"Shiriloo's Circle\" 8082"
   },
   "author": "Noam-Tal Cohen",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.20.2",
     "express": "^4.18.2",
-    "pug": "^3.0.2",
-    "sha256": "^0.2.0",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
-    "util": "^0.12.5",
+    "pug": "^3.0.2",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

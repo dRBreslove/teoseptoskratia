@@ -1,0 +1,254 @@
+extends includes/layout
+
+block content
+    .exchange-container
+        .exchange-header
+            h1 Decentralized Exchange
+            p Trade private coins across namespaces
+
+        .exchange-grid
+            .exchange-panel
+                .panel-header
+                    h2 Buy
+                .panel-content
+                    .form-group
+                        label(for="order-type") Order Type
+                        select#order-type
+                            option(value="market") Market Order
+                            option(value="limit") Limit Order
+                            option(value="stop") Stop Order
+                            option(value="stop-limit") Stop Limit Order
+                            option(value="trailing-stop") Trailing Stop
+                            option(value="iceberg") Iceberg Order
+
+                    .form-group
+                        label(for="buy-amount") Amount
+                        input#buy-amount(type="number", min="0", step="0.000001", placeholder="Enter amount")
+                    
+                    .form-group
+                        label(for="buy-coin") Coin
+                        select#buy-coin
+                            option(value="") Select coin
+                            each coin in coins
+                                option(value=coin.name)= coin.name
+                    
+                    .form-group
+                        label(for="buy-namespace") From Namespace
+                        select#buy-namespace
+                            option(value="our-circle") Our Circle
+                            option(value="itay-circle") Itay's Circle
+                            option(value="shiriloo-circle") Shiriloo's Circle
+
+                    #limit-price-container.form-group(style="display: none;")
+                        label(for="limit-price") Limit Price
+                        input#limit-price(type="number", min="0", step="0.000001", placeholder="Enter limit price")
+
+                    #stop-loss-container.form-group(style="display: none;")
+                        label(for="stop-loss") Stop Loss
+                        input#stop-loss(type="number", min="0", step="0.000001", placeholder="Enter stop loss price")
+
+                    #take-profit-container.form-group(style="display: none;")
+                        label(for="take-profit") Take Profit
+                        input#take-profit(type="number", min="0", step="0.000001", placeholder="Enter take profit price")
+
+                    #trailing-stop-container.form-group(style="display: none;")
+                        label(for="trailing-stop") Trailing Stop (%)
+                        input#trailing-stop(type="number", min="0", step="0.1", placeholder="Enter trailing stop percentage")
+
+                    #iceberg-container.form-group(style="display: none;")
+                        label(for="iceberg-visibility") Visible Amount
+                        input#iceberg-visibility(type="number", min="0", step="0.000001", placeholder="Enter visible amount")
+                        label(for="iceberg-chunks") Number of Chunks
+                        input#iceberg-chunks(type="number", min="2", value="2", placeholder="Enter number of chunks")
+
+                    .price-info
+                        .current-price
+                            span Current Price:
+                            span#buy-price 0.00
+                        .price-change
+                            span 24h Change:
+                            span#buy-price-change.positive +0.00%
+
+                    button.exchange-button.buy-button(onclick="executeBuy()") Buy
+
+            .exchange-panel
+                .panel-header
+                    h2 Sell
+                .panel-content
+                    .form-group
+                        label(for="sell-order-type") Order Type
+                        select#sell-order-type
+                            option(value="market") Market Order
+                            option(value="limit") Limit Order
+                            option(value="stop") Stop Order
+                            option(value="stop-limit") Stop Limit Order
+                            option(value="trailing-stop") Trailing Stop
+                            option(value="iceberg") Iceberg Order
+
+                    .form-group
+                        label(for="sell-amount") Amount
+                        input#sell-amount(type="number", min="0", step="0.000001", placeholder="Enter amount")
+                    
+                    .form-group
+                        label(for="sell-coin") Coin
+                        select#sell-coin
+                            option(value="") Select coin
+                            each coin in coins
+                                option(value=coin.name)= coin.name
+                    
+                    .form-group
+                        label(for="sell-namespace") To Namespace
+                        select#sell-namespace
+                            option(value="our-circle") Our Circle
+                            option(value="itay-circle") Itay's Circle
+                            option(value="shiriloo-circle") Shiriloo's Circle
+
+                    #sell-limit-price-container.form-group(style="display: none;")
+                        label(for="sell-limit-price") Limit Price
+                        input#sell-limit-price(type="number", min="0", step="0.000001", placeholder="Enter limit price")
+
+                    #sell-stop-loss-container.form-group(style="display: none;")
+                        label(for="sell-stop-loss") Stop Loss
+                        input#sell-stop-loss(type="number", min="0", step="0.000001", placeholder="Enter stop loss price")
+
+                    #sell-take-profit-container.form-group(style="display: none;")
+                        label(for="sell-take-profit") Take Profit
+                        input#sell-take-profit(type="number", min="0", step="0.000001", placeholder="Enter take profit price")
+
+                    #sell-trailing-stop-container.form-group(style="display: none;")
+                        label(for="sell-trailing-stop") Trailing Stop (%)
+                        input#sell-trailing-stop(type="number", min="0", step="0.1", placeholder="Enter trailing stop percentage")
+
+                    #sell-iceberg-container.form-group(style="display: none;")
+                        label(for="sell-iceberg-visibility") Visible Amount
+                        input#sell-iceberg-visibility(type="number", min="0", step="0.000001", placeholder="Enter visible amount")
+                        label(for="sell-iceberg-chunks") Number of Chunks
+                        input#sell-iceberg-chunks(type="number", min="2", value="2", placeholder="Enter number of chunks")
+
+                    .price-info
+                        .current-price
+                            span Current Price:
+                            span#sell-price 0.00
+                        .price-change
+                            span 24h Change:
+                            span#sell-price-change.negative -0.00%
+
+                    button.exchange-button.sell-button(onclick="executeSell()") Sell
+
+        .chart-container
+            .panel-header
+                h2 Price Chart
+                .chart-controls
+                    select#chart-timeframe
+                        option(value="1m") 1m
+                        option(value="5m") 5m
+                        option(value="15m") 15m
+                        option(value="1h") 1h
+                        option(value="4h") 4h
+                        option(value="1d") 1d
+                    select#chart-indicators
+                        option(value="none") No Indicators
+                        option(value="sma") Simple Moving Average
+                        option(value="ema") Exponential Moving Average
+                        option(value="rsi") Relative Strength Index
+                        option(value="macd") MACD
+                        option(value="bollinger") Bollinger Bands
+                        option(value="stochastic") Stochastic
+                        option(value="atr") ATR
+                    select#secondary-indicator
+                        option(value="none") No Secondary Indicator
+                        option(value="sma") Simple Moving Average
+                        option(value="ema") Exponential Moving Average
+                        option(value="rsi") Relative Strength Index
+                        option(value="macd") MACD
+                        option(value="bollinger") Bollinger Bands
+                        option(value="stochastic") Stochastic
+                        option(value="atr") ATR
+                    label.chart-toggle
+                        input#toggle-volume(type="checkbox", checked)
+                        span Show Volume
+            .panel-content
+                canvas#price-chart
+
+        .market-overview
+            .panel-header
+                h2 Market Overview
+            .panel-content
+                .market-stats
+                    .stat-item
+                        span.label 24h Volume
+                        span.value#volume-24h 0.00
+                    .stat-item
+                        span.label 24h High
+                        span.value#high-24h 0.00
+                    .stat-item
+                        span.label 24h Low
+                        span.value#low-24h 0.00
+                    .stat-item
+                        span.label Market Cap
+                        span.value#market-cap 0.00
+                    .stat-item
+                        span.label 24h Trades
+                        span.value#trades-24h 0
+                    .stat-item
+                        span.label Average Trade Size
+                        span.value#avg-trade-size 0.00
+
+        .order-book
+            .panel-header
+                h2 Order Book
+                .order-book-controls
+                    select#order-book-depth
+                        option(value="10") 10 orders
+                        option(value="20") 20 orders
+                        option(value="50") 50 orders
+                    label.order-book-toggle
+                        input#toggle-cumulative(type="checkbox", checked)
+                        span Show Cumulative
+            .panel-content
+                table
+                    thead
+                        tr
+                            th Price
+                            th Amount
+                            th Total
+                            th Type
+                            th Time
+                    tbody#order-book-body
+                        tr
+                            td(colspan="5") Loading orders...
+
+        .trade-history
+            .panel-header
+                h2 Recent Trades
+                .trade-history-controls
+                    select#trade-history-limit
+                        option(value="10") Last 10 trades
+                        option(value="20") Last 20 trades
+                        option(value="50") Last 50 trades
+                    label.trade-history-toggle
+                        input#toggle-trade-details(type="checkbox", checked)
+                        span Show Details
+            .panel-content
+                table
+                    thead
+                        tr
+                            th Time
+                            th Price
+                            th Amount
+                            th Total
+                            th Type
+                            th Namespace
+                    tbody#trade-history-body
+                        tr
+                            td(colspan="6") Loading trades...
+
+    script(src="https://cdn.jsdelivr.net/npm/chart.js")
+    script(src="/js/exchange.js")
+    script(src="/js/chart.js")
+    script.
+        // Initialize exchange functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const exchange = new DecentralizedExchange();
+            exchange.initialize();
+        }); 
