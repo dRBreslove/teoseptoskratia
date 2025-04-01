@@ -1,91 +1,153 @@
 # TEK (Teoseptoskratia)
 
-A decentralized distributed multichain cryptocurrency system built with JavaScript.
-
-## Overview
-
-TEK is a blockchain platform that allows multiple blockchains to operate within a single namespace. Each blockchain maintains its own ledger while enabling cross-chain transactions. The system implements a Proof of Work (PoW) consensus mechanism with CPU-based fee calculations.
+A decentralized distributed multi-chain cryptocurrency system built with Node.js and Express.
 
 ## Features
 
-- **Multichain Architecture**: Run multiple blockchains in parallel within a namespace
-- **Cross-Chain Transactions**: Transfer value between different blockchains
-- **PoW Mining**: Generate new coins through computational work
-- **CPU-Based Fees**: Transaction costs calculated based on computational resources
-- **Web Interface**: User-friendly dashboard for blockchain interactions
-- **Auto-Reset**: Hourly reset for demonstration purposes
+- **Multi-Chain Support**: Each namespace can host multiple independent blockchains
+- **CPU-Based Mining**: Mining difficulty is based on CPU usage
+- **Transaction Fees**: Automatic fee calculation based on CPU usage
+- **Real-time Updates**: WebSocket-based communication for live blockchain updates
+- **Customizable UI**: Different themes for different namespaces
+- **ES6 Standards**: Modern JavaScript implementation using ES6+ features
+
+## Prerequisites
+
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
 ## Installation
 
+1. Clone the repository:
 ```bash
-# Clone the repository
 git clone https://github.com/yourusername/teoseptoskratia.git
 cd teoseptoskratia
+```
 
-# Install dependencies
+2. Install dependencies:
+```bash
 npm install
 ```
 
-## Usage
+## Configuration
 
-The system can run multiple nodes, each with its own blockchain:
+The application can be configured through command-line arguments:
 
+- `namespace`: The name of your blockchain namespace (default: "My Circle")
+- `port`: The port number to run the server on (default: 8080)
+
+Example:
 ```bash
-# Start node 1 (default port 8080)
-npm run node_1
-
-# Start node 2 (port 8081)
-npm run node_2
-
-# Start node 3 (port 8082)
-npm run node_3
+node src/server.js "My Circle" 8080
 ```
 
-Access the web interfaces at:
-- http://localhost:8080/
-- http://localhost:8081/
-- http://localhost:8082/
+## Running Multiple Nodes
 
-## Architecture
+You can run multiple nodes with different namespaces:
 
-TEK consists of several key components:
+```bash
+# Node 1
+npm run node_1  # Runs on port 8080 with namespace "Our Circle"
 
-1. **Blockchain Core**: Handles block creation, mining, and validation
-2. **Multi-Chain Management**: Manages multiple blockchain instances
-3. **Network Layer**: Facilitates communication between nodes
-4. **Database**: Persists blockchain data to the filesystem
-5. **Web Server**: Provides API endpoints and user interface
+# Node 2
+npm run node_2  # Runs on port 8081 with namespace "Itay's Circle"
+
+# Node 3
+npm run node_3  # Runs on port 8082 with namespace "Shiriloo's Circle"
+```
 
 ## Development
 
-This project uses ES modules for newer components and CommonJS for legacy code. The codebase is transitioning toward a more modern architecture with TypeScript support in development.
+### Code Style
 
-### Key Files
-
-- `src/server.js`: Main application entry point
-- `src/blockchain.js`: Core blockchain implementation
-- `src/db.js`: Database management
-- `src/network/`: WebSocket communication
-- `src/core/`: Modern blockchain implementation (ES6+)
-- `src/utils/`: Utility functions
-
-### Customization
-
-To create your own blockchain namespace:
+The project uses ESLint with Airbnb's JavaScript style guide. To check code style:
 
 ```bash
-npm start "Your Circle Name" 8080
+npm run lint
 ```
 
-## Live Demo
+To automatically fix linting issues:
 
-[Single Node Live Demo](https://plankton-app-w6pzk.ondigitalocean.app)
+```bash
+npm run lint:fix
+```
 
-## Credits
+### Testing
 
-This project draws inspiration from blockchain fundamentals. For a deeper understanding of blockchain technology with JavaScript, check out:
-[Learn Blockchain By Building Your Own In JavaScript](https://www.udemy.com/course/build-a-blockchain-in-javascript/)
+Run the test suite:
 
-## Disclaimer
+```bash
+npm test
+```
 
-This project is a rapid prototype for educational purposes. The code is not optimized for production use.
+## Project Structure
+
+```
+src/
+├── blockchain.js     # Core blockchain implementation
+├── db.js            # Database operations
+├── server.js        # Express server and routes
+├── socket.io-cb.js  # WebSocket communication
+├── test.js          # Test suite
+├── views/           # Pug templates
+├── public/          # Static assets
+├── utils/           # Utility functions
+├── network/         # Network-related code
+├── core/            # Core functionality
+└── config/          # Configuration files
+```
+
+## API Endpoints
+
+### GET /
+- Home page
+- Displays blockchain information
+
+### GET /ideology
+- Displays project ideology and documentation
+
+### GET /:coinname/home
+- Displays specific blockchain information
+- Parameters:
+  - `coinname`: Name of the blockchain
+  - `new`: Query parameter to create new blockchain
+
+### GET /:from/:blockchain/partner
+- Partner view for blockchain interaction
+- Parameters:
+  - `from`: Source blockchain
+  - `blockchain`: Target blockchain
+
+### POST /mine
+- Mine new blocks
+- Body: `{ "from": "blockchain_name" }`
+
+### POST /transfer
+- Transfer coins between blockchains
+- Body: `{ "from": "source", "to": "destination", "amount": number }`
+
+## Blockchain Features
+
+### Mining
+- CPU-based proof of work
+- Mining reward: 12.5 coins per block
+- Automatic fee calculation based on CPU usage
+
+### Transactions
+- Secure transfer between blockchains
+- Automatic fee calculation
+- Transaction validation
+
+### Security
+- SHA-256 hashing
+- Chain validation
+- CPU usage tracking
+- Automatic fee calculation
+
+## License
+
+MIT License - See LICENSE file for details
+
+## Author
+
+Noam-Tal Cohen
