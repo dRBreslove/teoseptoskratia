@@ -1,153 +1,49 @@
-# TEK (Teoseptoskratia)
+# Teoseptoskratia
 
-A decentralized distributed multi-chain cryptocurrency system built with Node.js and Express.
+Teoseptoskratia is an experimental, open-source platform that explores innovative approaches to collective decision-making and governance models. Drawing inspiration from decentralized systems and community-driven frameworks, Teoseptoskratia provides a flexible foundation to test new ideas in collaborative governance, blending modern technology with participatory concepts.
+
+---
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Getting Started](#getting-started)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Contribution Guidelines](#contribution-guidelines)
+- [License](#license)
+- [Contact](#contact)
+
+---
+
+## Introduction
+
+As communities evolve and the need for responsive, transparent governance grows, traditional models are increasingly challenged. Teoseptoskratia is designed to meet these challenges head on by offering a platform where decentralized governance and community participation are at the core. Whether you're a researcher, developer, or community organizer, this project provides a sandbox for experimenting with alternative governance structures in a modular, extensible environment.
+
+---
 
 ## Features
 
-- **Multi-Chain Support**: Each namespace can host multiple independent blockchains
-- **CPU-Based Mining**: Mining difficulty is based on CPU usage
-- **Transaction Fees**: Automatic fee calculation based on CPU usage
-- **Real-time Updates**: WebSocket-based communication for live blockchain updates
-- **Customizable UI**: Different themes for different namespaces
-- **ES6 Standards**: Modern JavaScript implementation using ES6+ features
+- **Decentralized Governance Modules:**  
+  Implement and experiment with different decision-making models using a modular architecture that lets you plug in various governance experiments.
 
-## Prerequisites
+- **Community Engagement Tools:**  
+  Access built-in voting systems, proposal management, and collaborative discussion boards to foster transparent community involvement.
 
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+- **Real-Time Analytics:**  
+  Monitor proposal dynamics, participation rates, and decision outcomes with interactive, real-time dashboards that help measure the impact of governance initiatives.
 
-## Installation
+- **API-Driven Architecture:**  
+  Extend the platform with external integrations—connect data feeds, authentication systems, or third-party services to enrich your governance ecosystem.
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/teoseptoskratia.git
-cd teoseptoskratia
-```
+- **Customizable Workflows:**  
+  Adapt the platform to support diverse governance strategies, from small-scale community polls to large-scale, enterprise-level decision frameworks.
 
-2. Install dependencies:
-```bash
-npm install
-```
+---
 
-## Configuration
+## Architecture
 
-The application can be configured through command-line arguments:
+Teoseptoskratia is built on a modern web stack and is organized into distinct modules to ensure clarity, scalability, and ease of customization. A high-level overview of the repository structure is as follows:
 
-- `namespace`: The name of your blockchain namespace (default: "My Circle")
-- `port`: The port number to run the server on (default: 8080)
-
-Example:
-```bash
-node src/server.js "My Circle" 8080
-```
-
-## Running Multiple Nodes
-
-You can run multiple nodes with different namespaces:
-
-```bash
-# Node 1
-npm run node_1  # Runs on port 8080 with namespace "Our Circle"
-
-# Node 2
-npm run node_2  # Runs on port 8081 with namespace "Itay's Circle"
-
-# Node 3
-npm run node_3  # Runs on port 8082 with namespace "Shiriloo's Circle"
-```
-
-## Development
-
-### Code Style
-
-The project uses ESLint with Airbnb's JavaScript style guide. To check code style:
-
-```bash
-npm run lint
-```
-
-To automatically fix linting issues:
-
-```bash
-npm run lint:fix
-```
-
-### Testing
-
-Run the test suite:
-
-```bash
-npm test
-```
-
-## Project Structure
-
-```
-src/
-├── blockchain.js     # Core blockchain implementation
-├── db.js            # Database operations
-├── server.js        # Express server and routes
-├── socket.io-cb.js  # WebSocket communication
-├── test.js          # Test suite
-├── views/           # Pug templates
-├── public/          # Static assets
-├── utils/           # Utility functions
-├── network/         # Network-related code
-├── core/            # Core functionality
-└── config/          # Configuration files
-```
-
-## API Endpoints
-
-### GET /
-- Home page
-- Displays blockchain information
-
-### GET /ideology
-- Displays project ideology and documentation
-
-### GET /:coinname/home
-- Displays specific blockchain information
-- Parameters:
-  - `coinname`: Name of the blockchain
-  - `new`: Query parameter to create new blockchain
-
-### GET /:from/:blockchain/partner
-- Partner view for blockchain interaction
-- Parameters:
-  - `from`: Source blockchain
-  - `blockchain`: Target blockchain
-
-### POST /mine
-- Mine new blocks
-- Body: `{ "from": "blockchain_name" }`
-
-### POST /transfer
-- Transfer coins between blockchains
-- Body: `{ "from": "source", "to": "destination", "amount": number }`
-
-## Blockchain Features
-
-### Mining
-- CPU-based proof of work
-- Mining reward: 12.5 coins per block
-- Automatic fee calculation based on CPU usage
-
-### Transactions
-- Secure transfer between blockchains
-- Automatic fee calculation
-- Transaction validation
-
-### Security
-- SHA-256 hashing
-- Chain validation
-- CPU usage tracking
-- Automatic fee calculation
-
-## License
-
-MIT License - See LICENSE file for details
-
-## Author
-
-Noam-Tal Cohen
